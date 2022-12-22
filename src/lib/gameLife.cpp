@@ -28,9 +28,22 @@ namespace Life{
 
     if(ifs.is_open()){
       ifs >> cell.n_rows >> cell.n_cols >> _birth;
-      while (std::getline(ifs, line)){
-
+      while (not ifs.eof()){
+        std::getline(ifs, line);
+        if(not line.empty()){
+          for(int i{0}; i < cell.n_rows; i++){
+            uint katriel_galado = 0;
+            for(int j{0}; j < cell.n_cols and (katriel_galado < line.size()); j++){
+              char actual = line[j];
+              std::cout << actual << " ";
+              ++katriel_galado;
+              //cell.board[j][i] = ((actual == _birth) ?  1 : 0);  
+            }   
+            std::cout << std::endl;       
+          }    
+        }else continue;
       }
+
       _died = line[0];
       ifs.close();
     }else{
