@@ -25,15 +25,15 @@ namespace Life{
   }
 
   //!<Displays a cell individually
-  void show_cell(short cell,char birth,char died {
+  void show_cell(short cell,char birth, char died) {
     std::cout << (cell ? birth : died);
   }
 
   //!< Displays an entire line and his start and end tags
-  void show_row(std::vector<short> row){
+  void show_row(std::vector<short> row, char birth, char died){
     std::cout << "[";
     for (int cell : row) 
-      show_cell(cell);
+      show_cell(cell, birth, died);
     std::cout << "]\n";
   }
 

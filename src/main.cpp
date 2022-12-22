@@ -1,7 +1,7 @@
 #include <iostream>
-#include "gameLife.h"
+#include "./lib/gameLife.h"
 
 int main(int argc,char *argv[]){
   Life::GameLife life;
-  life.initialize(argc,argv);
+  life.initialize(argc, argv);
 }
