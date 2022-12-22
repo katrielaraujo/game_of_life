@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include "./lib/gameLife.h"
 
 int main(int argc,char *argv[]){

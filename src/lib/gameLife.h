@@ -7,6 +7,9 @@
 namespace Life {
   class GameLife {
     public:
+      GameLife(){}
+      ~GameLife(){}
+      GameLife(const GameLife& c);
       Cell cell;
       string _filename;
       char _birth;
@@ -14,10 +17,9 @@ namespace Life {
       int _maxgen;
       int _fps{2};
 
-      
-      void initialize(int argc,char *argv[]);
       void usage();
       void open_file();
+      void initialize(int argc,char **argv);
   };
 } // namespace Life
 

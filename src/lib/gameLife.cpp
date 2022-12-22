@@ -25,7 +25,7 @@ namespace Life{
       while(not FileData.eof()){
         for(auto ca: line){
           for(int ii{0}; ii < cell.n_rows;++ii){
-            for(int jj{0};(jj < cell.n_cols) or (jj <line.size());++jj)
+            for(int jj{0};(jj < cell.n_cols) or (jj < int (line.size()));++jj)
               cell.board.at(ii).at(jj) = (ca == _birth)? 1 : 0;
           }
           if(ca != _birth) 
