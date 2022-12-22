@@ -24,7 +24,7 @@ namespace Life{
             for(int j = 0; j < n_cols; j++)
               board[i][j] = 0;
       }
-      ~Cell();
+      ~Cell() = default;
       Cell(const Cell& c){
         board = c.board;
         n_rows = c.n_rows;

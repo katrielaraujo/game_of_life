@@ -38,37 +38,7 @@ namespace Life{
     }
   }
 
-  void GameLife::initialize(int argc,char *argv[]){
-    for(short ii{1};ii < argc;++ii){
-      string args{argv[ii]};
-      if(args == "--maxgen" and (argc >= (ii+2))){
-        args = argv[++ii];
-        if(isdigit(args[0]))
-          _maxgen = atoi(args.c_str());
-        else{
-          std::cout << "Ausência de parametros use sudoku --help para mais informações\n";
-          exit(EXIT_FAILURE);
-        }
-      }//MARGEN
-      else if(args == "--maxgen" and (argc < (ii+2))){
-        std::cout << "Ausência de parametros use sudoku --help para mais informações\n";
-          exit(EXIT_FAILURE);
-      }else if(args == "--fps" and (argc >= (ii+2))){
-        args = argv[++ii];
-        if(isdigit(args[0]))
-          _fps = atoi(args.c_str());
-        else{
-          std::cout <<"Ausência de parametros use sudoku --help para mais informações\n";
-          exit(EXIT_FAILURE);
-        }
-      }else if(args == "--fps" and (argc < (ii+2))){
-        std::cout <<"Ausência de parametros use sudoku --help para mais informações\n";
-        exit(EXIT_FAILURE);
-      }else if(args == "--help"){
-        //usagen("");
-      }else
-        _filename = args;
-    }
-    open_file();
+  void GameLife::initialize(int argc,char **argv){
+    cout << "entrou\n";
   }
 }
