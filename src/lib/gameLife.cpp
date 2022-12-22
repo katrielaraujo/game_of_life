@@ -9,6 +9,10 @@ using std::cout;
 //<cfg_file>, --help, --maxgen e --fps
 
 namespace Life{
+  void GameLife::lack_of_parameters(){
+    std::cout << "Ausência de parametros use sudoku --help para mais informações\n";
+    exit(EXIT_FAILURE);
+  }
   void GameLife::usage(){
     cout << "Usage: glife [options] input_cfg_file\n";
     cout << "Running options:\n";
@@ -40,37 +44,32 @@ namespace Life{
   }
 
   void GameLife::initialize(int argc,char **argv){
+    if(argc == 1) std::cout << "Ausência de parametros use sudoku --help para mais informações\n";
     for(short ii{1};ii < argc;++ii){
       string args{argv[ii]};
       if(args == "--maxgen" and (argc >= (ii+2))){
         args = argv[++ii];
         if(isdigit(args[0]))
           _maxgen = atoi(args.c_str());
-        else{
-          std::cout << "Ausência de parametros use sudoku --help para mais informações\n";
-          exit(EXIT_FAILURE);
-        }
+        else
+          lack_of_parameters();
       }//MARGEN
-      else if(args == "--maxgen" and (argc < (ii+2))){
-        std::cout << "Ausência de parametros use sudoku --help para mais informações\n";
-          exit(EXIT_FAILURE);
-      }else if(args == "--fps" and (argc >= (ii+2))){
+      else if(args == "--maxgen" and (argc < (ii+2)))
+        lack_of_parameters();
+      else if(args == "--fps" and (argc >= (ii+2))){
         args = argv[++ii];
         if(isdigit(args[0]))
           _fps = atoi(args.c_str());
-        else{
-          std::cout <<"Ausência de parametros use sudoku --help para mais informações\n";
-          exit(EXIT_FAILURE);
-        }
-      }else if(args == "--fps" and (argc < (ii+2))){
-        std::cout <<"Ausência de parametros use sudoku --help para mais informações\n";
-        exit(EXIT_FAILURE);
-      }else if(args == "--help"){
+        else
+          lack_of_parameters();
+      }else if(args == "--fps" and (argc < (ii+2)))
+        lack_of_parameters();
+      else if(args == "--help")
         usage();
-      }else
+      else
         _filename = args;
     }
-     cout << "Maxgen = " << _maxgen << " fps = " << _fps << " filename = "<<_filename<<"\n";
+    cout << "Maxgen = " << _maxgen << " fps = " << _fps << " filename = "<<_filename<<"\n";
     open_file();
   }
 }

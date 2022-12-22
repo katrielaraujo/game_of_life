@@ -19,6 +19,7 @@ namespace Life {
 
       void usage();
       void open_file();
+      void lack_of_parameters();
       void initialize(int argc,char **argv);
   };
 } // namespace Life
