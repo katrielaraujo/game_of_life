@@ -15,6 +15,7 @@ namespace Life{
     cout << "  --help Print this help text.\n";
     cout << "  --maxgen <num> Maximum number of generations to simulate. No default.\n";
     cout << "  --fps <num> # of generations presented p/ second. Default = 2 fps.\n";
+    exit(EXIT_SUCCESS);
   }
 
   void GameLife::open_file(){
@@ -39,6 +40,37 @@ namespace Life{
   }
 
   void GameLife::initialize(int argc,char **argv){
-    cout << "entrou\n";
+    for(short ii{1};ii < argc;++ii){
+      string args{argv[ii]};
+      if(args == "--maxgen" and (argc >= (ii+2))){
+        args = argv[++ii];
+        if(isdigit(args[0]))
+          _maxgen = atoi(args.c_str());
+        else{
+          std::cout << "Ausência de parametros use sudoku --help para mais informações\n";
+          exit(EXIT_FAILURE);
+        }
+      }//MARGEN
+      else if(args == "--maxgen" and (argc < (ii+2))){
+        std::cout << "Ausência de parametros use sudoku --help para mais informações\n";
+          exit(EXIT_FAILURE);
+      }else if(args == "--fps" and (argc >= (ii+2))){
+        args = argv[++ii];
+        if(isdigit(args[0]))
+          _fps = atoi(args.c_str());
+        else{
+          std::cout <<"Ausência de parametros use sudoku --help para mais informações\n";
+          exit(EXIT_FAILURE);
+        }
+      }else if(args == "--fps" and (argc < (ii+2))){
+        std::cout <<"Ausência de parametros use sudoku --help para mais informações\n";
+        exit(EXIT_FAILURE);
+      }else if(args == "--help"){
+        usage();
+      }else
+        _filename = args;
+    }
+     cout << "Maxgen = " << _maxgen << " fps = " << _fps << " filename = "<<_filename<<"\n";
+    open_file();
   }
 }

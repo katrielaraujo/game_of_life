@@ -11,7 +11,7 @@ namespace Life {
       ~GameLife(){}
       GameLife(const GameLife& c);
       Cell cell;
-      string _filename;
+      string _filename{"./data/cfg2.dat"};
       char _birth;
       char _died;
       int _maxgen;
