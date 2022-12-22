@@ -1,16 +1,7 @@
 #include <iostream>
-#include <string>
-#include <fstream>
+#include "gameLife.h"
 
-using std::string;
-using std::cin;
-using std::cout;
-
-int main(int argc,char *argv){
-    std::ifstream file;
-
-    string filename;
-    cout << "File: ";
-
-    return 0;
+int main(int argc,char *argv[]){
+  Life::GameLife life;
+  life.initialize(argc,argv);
 }
