@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <sstream>
 #include "cell.h"
 #include "gameLife.h"
 
@@ -53,5 +54,13 @@ namespace Life{
             c.board[row][col] = check(original, row, col);
         }
     }
+  }
+
+  std::string board_to_string(Cell c){
+    std::ostringstream oss;
+    for(int i{0}; i < c.n_rows; i++)
+      for(int j{0}; j < c.n_cols; j++)
+        oss << c.board[i][j];
+    return oss.str();    
   }
 }

@@ -34,6 +34,7 @@ namespace Life{
       void show_board(Cell);
       short check(Cell, short, short);
       void update_cells(Cell);
+      std::string board_to_string(Cell);
   }; 
 }
 #endif
