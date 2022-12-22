@@ -13,7 +13,8 @@ namespace Life {
       char _died;
       int _maxgen;
       int _fps{2};
-    public: 
+
+      
       void initialize(int argc,char *argv[]);
       void usage();
       void open_file();
