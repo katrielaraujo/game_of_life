@@ -44,7 +44,7 @@ namespace Life{
   }
 
   void GameLife::initialize(int argc,char **argv){
-    if(argc == 1) std::cout << "Ausência de parametros use sudoku --help para mais informações\n";
+    if(argc == 1) lack_of_parameters();
     for(short ii{1};ii < argc;++ii){
       string args{argv[ii]};
       if(args == "--maxgen" and (argc >= (ii+2))){
