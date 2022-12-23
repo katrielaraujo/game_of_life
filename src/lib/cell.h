@@ -9,6 +9,7 @@ namespace Life{
   class Cell {
     public:  
       std::vector<std::vector<short>> board;
+      std::vector<std::string> generations;
       short n_rows;
       short n_cols;
   
@@ -31,11 +32,14 @@ namespace Life{
 
       short get_neighbor(Cell, short, short);
       short get_count(Cell, short, short); 
+      short check(Cell, short, short);
+      short is_alive();
       void show_cell(short, char, char);
       void show_row(std::vector<short>, char, char);
-      void show_board(Cell);
-      short check(Cell, short, short);
+      void show_board(Cell, char, char);
+      
       void update_cells(Cell);
+      
       std::string board_to_string(Cell);
   }; 
 }

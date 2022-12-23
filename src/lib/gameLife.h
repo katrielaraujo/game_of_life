@@ -21,6 +21,9 @@ namespace Life {
       void open_file();
       void lack_of_parameters();
       void initialize(int argc,char **argv);
+      void generate_life();
+      void extinction();
+      bool stable(std::string&, std::string&);
   };
 } // namespace Life
 

@@ -25,24 +25,20 @@ namespace Life{
   void GameLife::open_file(){
     string line;
     std::ifstream FileData(_filename);
-    std::vector<std::vector<char>> caracteres;
-    char carac;
+    std::vector<string> lineTeste;
     if(FileData.is_open()){
       FileData >> cell.n_rows >> cell.n_cols >> _birth;
-      for(int i{0}; i < 7; i++)
-        for(int j{0}; j < 9; j++)
-          FileData >> caracteres[i][j];
-
-      for(int i{0}; i < cell.n_rows; i++)
-        for(int j{0}; j < cell.n_cols; j++)
-          std::cout << caracteres[i][j];    
-    // for(uint i{0u}; i < (lineTeste.size() - 1); i++){
-    //  for(uint j{0u}; j < (lineTeste[i].size() - 1); j++){
-    //    cell.board[i][j] = (lineTeste[i][j] == _birth) ? 1 : 0;
-    //    std::cout << cell.board[i][j] << " ";
-    //  }
-     // std::cout << std::endl;
-     //}
+      while(not FileData.eof()){
+        std::getline(FileData,line);
+        lineTeste.push_back(line);
+      }
+     for(uint i{0u}; i < (lineTeste.size() - 1); i++){
+      for(uint j{0u}; j < (lineTeste[i].size() - 1); j++){
+        cell.board[i][j] = (lineTeste[i][j] == _birth) ? 1 : 0;
+        std::cout << cell.board[i][j] << " ";
+      }
+      std::cout << std::endl;
+     }
      
         
       FileData.close();
@@ -82,5 +78,28 @@ namespace Life{
     cout << "Maxgen = " << _maxgen << " fps = " << _fps << " filename = "<<_filename<<"\n";
     open_file();
 
+  }
+
+  void GameLife::extinction(){
+    if(cell.is_alive() == 0){
+      std::cout << "ENTROU EM EXTINÇÃO" << std::endl;
+      exit(EXIT_FAILURE);
+    }   
+  }
+
+  bool GameLife::stable(std::string first_gen, std::string second_gen){
+    return (first_gen == second_gen);
+  } 
+
+  void GameLife::generate_life(){
+    for(int i{0}; i < _maxgen; i++){
+      cell.show_board(cell, _birth, _died);
+      cell.update_cells(cell);
+      cell.generations.push_back(cell.board_to_string(cell));
+      if(stable(cell.generations[cell.generations.size() - 2] , cell.generations[cell.generations.size() - 1])){
+        std::cout << "ENTROU EM ESTABILIDADE" << std::endl;
+        exit(EXIT_FAILURE);
+      }else extinction();
+    }
   }
 }
