@@ -23,34 +23,22 @@ namespace Life{
   }
 
   void GameLife::open_file(){
-    std::ifstream ifs{_filename};
-    std::string line;
-
-    if(ifs.is_open()){
-      ifs >> cell.n_rows >> cell.n_cols >> _birth;
-      while (not ifs.eof()){
-        std::getline(ifs, line);
-        if(not line.empty()){
-          for(int i{0}; i < cell.n_rows; i++){
-            uint katriel_galado = 0;
-            for(int j{0}; j < cell.n_cols and (katriel_galado < line.size()); j++){
-              char actual = line[j];
-              std::cout << actual << " ";
-              ++katriel_galado;
-              //cell.board[j][i] = ((actual == _birth) ?  1 : 0);  
-            }   
-            std::cout << std::endl;       
-          }    
-        }else continue;
+    string line;
+    std::ifstream FileData(_filename);
+    std::vector<string> lineTeste;
+    if(FileData.is_open()){
+      FileData >> cell.n_rows >> cell.n_cols >> _birth;
+      while(not FileData.eof()){
+        std::getline(FileData,line);
+        lineTeste.push_back(line);
       }
-
-      _died = line[0];
-      ifs.close();
+      for(auto l:lineTeste)
+        std::cout << l << '\n';
+      FileData.close();
     }else{
       std::cerr << "Uh oh, "<<_filename<<" could not be opened for reading!\n";
       exit(EXIT_FAILURE);
     }
-
   }
 
   void GameLife::initialize(int argc,char **argv){
