@@ -25,6 +25,15 @@ namespace Life{
     return count;
   }
 
+  short Cell::is_alive(){
+    short count = 0;
+    for(int i = 0; i < n_rows; i++)
+      for(int j = 0; j < n_cols; j++)
+        if(board[i][j] == 1)
+          count++;
+    return count;      
+  }
+
   //!<Displays a cell individually
   void Cell::show_cell(short cell,char birth, char died) {
     std::cout << (cell ? birth : died);
@@ -36,6 +45,10 @@ namespace Life{
     for (int cell : row) 
       show_cell(cell, birth, died);
     std::cout << "]\n";
+  }
+  //!< Displays the gameboard
+  void Cell::show_board(Cell c, char birth, char died){
+      for (const auto& row : c.board) { show_row(row, birth, died); }
   }
 
   //!<Check the state of the cell. Return 1 if her born or survived or 0 if her dead
@@ -55,7 +68,8 @@ namespace Life{
         }
     }
   }
-
+  
+  //!< Get the string version of an generation to compare stability
   std::string board_to_string(Cell c){
     std::ostringstream oss;
     for(int i{0}; i < c.n_rows; i++)

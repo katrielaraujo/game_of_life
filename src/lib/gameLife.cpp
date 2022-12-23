@@ -28,6 +28,7 @@ namespace Life{
     std::ifstream FileData(_filename);
     std::vector<string> lineTeste;
     if(FileData.is_open()){
+
       std::getline(FileData >> std::ws,line);
       if(not FileData.eof()){
         std::istringstream iss(line);
@@ -52,6 +53,24 @@ namespace Life{
         row++;
       }
       FileData.close();
+=======
+      FileData >> cell.n_rows >> cell.n_cols >> _birth;
+      while(not FileData.eof()){
+        std::getline(FileData,line);
+        lineTeste.push_back(line);
+      }
+     for(uint i{0u}; i < (lineTeste.size() - 1); i++){
+      for(uint j{0u}; j < (lineTeste[i].size() - 1); j++){
+        cell.board[i][j] = (lineTeste[i][j] == _birth) ? 1 : 0;
+        std::cout << cell.board[i][j] << " ";
+      }
+      std::cout << std::endl;
+     }
+     
+        
+      FileData.close();
+
+
     }else{
       std::cerr << "Uh oh, "<<_filename<<" could not be opened for reading!\n";
       exit(EXIT_FAILURE);
@@ -86,5 +105,29 @@ namespace Life{
     }
     cout << "Maxgen = " << _maxgen << " fps = " << _fps << " filename = "<<_filename<<"\n";
     open_file();
+
+  }
+
+  void GameLife::extinction(){
+    if(cell.is_alive() == 0){
+      std::cout << "ENTROU EM EXTINÇÃO" << std::endl;
+      exit(EXIT_FAILURE);
+    }   
+  }
+
+  bool GameLife::stable(std::string first_gen, std::string second_gen){
+    return (first_gen == second_gen);
+  } 
+
+  void GameLife::generate_life(){
+    for(int i{0}; i < _maxgen; i++){
+      cell.show_board(cell, _birth, _died);
+      cell.update_cells(cell);
+      cell.generations.push_back(cell.board_to_string(cell));
+      if(stable(cell.generations[cell.generations.size() - 2] , cell.generations[cell.generations.size() - 1])){
+        std::cout << "ENTROU EM ESTABILIDADE" << std::endl;
+        exit(EXIT_FAILURE);
+      }else extinction();
+    }
   }
 }
