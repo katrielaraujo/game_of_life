@@ -68,9 +68,9 @@ namespace Life{
         }
     }
   }
-  
+
   //!< Get the string version of an generation to compare stability
-  std::string board_to_string(Cell c){
+  std::string Cell::board_to_string(Cell c){
     std::ostringstream oss;
     for(int i{0}; i < c.n_rows; i++)
       for(int j{0}; j < c.n_cols; j++)

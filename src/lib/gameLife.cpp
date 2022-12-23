@@ -23,8 +23,9 @@ namespace Life{
     exit(EXIT_SUCCESS);
   }
 
-  void GameLife::open_file(){
+  Cell GameLife::open_file(){
     string line;
+    int rows, cols;
     std::ifstream FileData(_filename);
     std::vector<string> lineTeste;
     if(FileData.is_open()){
@@ -32,8 +33,10 @@ namespace Life{
       std::getline(FileData >> std::ws,line);
       if(not FileData.eof()){
         std::istringstream iss(line);
-        iss >> cell.n_rows >> cell.n_cols;
+        iss >> rows >> cols;
+        
       }
+      Cell cell = Cell(rows, cols);
       std::getline(FileData >> std::ws,line);
       if(not FileData.eof()){
         std::istringstream iss(line);
@@ -53,7 +56,6 @@ namespace Life{
         row++;
       }
       FileData.close();
-=======
       FileData >> cell.n_rows >> cell.n_cols >> _birth;
       while(not FileData.eof()){
         std::getline(FileData,line);
@@ -67,7 +69,7 @@ namespace Life{
       std::cout << std::endl;
      }
      
-        
+      return cell;
       FileData.close();
 
 
@@ -108,7 +110,7 @@ namespace Life{
 
   }
 
-  void GameLife::extinction(){
+  void GameLife::extinction(Cell cell){
     if(cell.is_alive() == 0){
       std::cout << "ENTROU EM EXTINÇÃO" << std::endl;
       exit(EXIT_FAILURE);
@@ -119,7 +121,7 @@ namespace Life{
     return (first_gen == second_gen);
   } 
 
-  void GameLife::generate_life(){
+  void GameLife::generate_life(Cell cell){
     for(int i{0}; i < _maxgen; i++){
       cell.show_board(cell, _birth, _died);
       cell.update_cells(cell);
@@ -127,7 +129,7 @@ namespace Life{
       if(stable(cell.generations[cell.generations.size() - 2] , cell.generations[cell.generations.size() - 1])){
         std::cout << "ENTROU EM ESTABILIDADE" << std::endl;
         exit(EXIT_FAILURE);
-      }else extinction();
+      }else extinction(cell);
     }
   }
 }
