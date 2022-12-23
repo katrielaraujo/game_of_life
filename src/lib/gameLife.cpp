@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <fstream>
+#include <sstream>
 #include <iostream>
 #include <cctype>
 #include "gameLife.h"
@@ -27,6 +28,32 @@ namespace Life{
     std::ifstream FileData(_filename);
     std::vector<string> lineTeste;
     if(FileData.is_open()){
+
+      std::getline(FileData >> std::ws,line);
+      if(not FileData.eof()){
+        std::istringstream iss(line);
+        iss >> cell.n_rows >> cell.n_cols;
+      }
+      std::getline(FileData >> std::ws,line);
+      if(not FileData.eof()){
+        std::istringstream iss(line);
+        iss >> _birth;
+      }
+      int row=0;
+      while(std::getline(FileData >> std::ws,line)){
+        if(not FileData.eof()){
+          // Procurar pelo caractere _birth dentro de line.
+          // A posição do _birth, se existir é a coluna da célula viva.
+          int col = line.find(_birth,0);
+          // TODO testar se está ok
+          if(col != -1)
+            cell.board[row][col] = 1;
+          // AQUI é o seu método de armazenar as células vivas.
+        }
+        row++;
+      }
+      FileData.close();
+=======
       FileData >> cell.n_rows >> cell.n_cols >> _birth;
       while(not FileData.eof()){
         std::getline(FileData,line);
@@ -42,6 +69,7 @@ namespace Life{
      
         
       FileData.close();
+
 
     }else{
       std::cerr << "Uh oh, "<<_filename<<" could not be opened for reading!\n";
