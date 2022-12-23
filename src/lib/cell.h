@@ -16,9 +16,11 @@ namespace Life{
       Cell(short rows, short cols){
         n_rows = rows;
         n_cols = cols;
-        for(int i = 0; i < n_rows; i++)
-            for(int j = 0; j < n_cols; j++)
+        for(int i = 0; i < n_rows; i++){
+          for(int j = 0; j < n_cols; j++){
               board[i][j] = 0;
+          }
+        }      
       }
       ~Cell(){}
       Cell(const Cell& c){

@@ -23,34 +23,34 @@ namespace Life{
   }
 
   void GameLife::open_file(){
-    std::ifstream ifs{_filename};
-    std::string line;
+    string line;
+    std::ifstream FileData(_filename);
+    std::vector<std::vector<char>> caracteres;
+    char carac;
+    if(FileData.is_open()){
+      FileData >> cell.n_rows >> cell.n_cols >> _birth;
+      for(int i{0}; i < 7; i++)
+        for(int j{0}; j < 9; j++)
+          FileData >> caracteres[i][j];
 
-    if(ifs.is_open()){
-      ifs >> cell.n_rows >> cell.n_cols >> _birth;
-      while (not ifs.eof()){
-        std::getline(ifs, line);
-        if(not line.empty()){
-          for(int i{0}; i < cell.n_rows; i++){
-            uint katriel_galado = 0;
-            for(int j{0}; j < cell.n_cols and (katriel_galado < line.size()); j++){
-              char actual = line[j];
-              std::cout << actual << " ";
-              ++katriel_galado;
-              //cell.board[j][i] = ((actual == _birth) ?  1 : 0);  
-            }   
-            std::cout << std::endl;       
-          }    
-        }else continue;
-      }
+      for(int i{0}; i < cell.n_rows; i++)
+        for(int j{0}; j < cell.n_cols; j++)
+          std::cout << caracteres[i][j];    
+    // for(uint i{0u}; i < (lineTeste.size() - 1); i++){
+    //  for(uint j{0u}; j < (lineTeste[i].size() - 1); j++){
+    //    cell.board[i][j] = (lineTeste[i][j] == _birth) ? 1 : 0;
+    //    std::cout << cell.board[i][j] << " ";
+    //  }
+     // std::cout << std::endl;
+     //}
+     
+        
+      FileData.close();
 
-      _died = line[0];
-      ifs.close();
     }else{
       std::cerr << "Uh oh, "<<_filename<<" could not be opened for reading!\n";
       exit(EXIT_FAILURE);
     }
-
   }
 
   void GameLife::initialize(int argc,char **argv){
@@ -81,5 +81,6 @@ namespace Life{
     }
     cout << "Maxgen = " << _maxgen << " fps = " << _fps << " filename = "<<_filename<<"\n";
     open_file();
+
   }
 }
