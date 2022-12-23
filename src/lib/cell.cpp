@@ -46,7 +46,7 @@ namespace Life{
       show_cell(cell, birth, died);
     std::cout << "]\n";
   }
-
+  //!< Displays the gameboard
   void Cell::show_board(Cell c, char birth, char died){
       for (const auto& row : c.board) { show_row(row, birth, died); }
   }
@@ -68,7 +68,8 @@ namespace Life{
         }
     }
   }
-
+  
+  //!< Get the string version of an generation to compare stability
   std::string board_to_string(Cell c){
     std::ostringstream oss;
     for(int i{0}; i < c.n_rows; i++)

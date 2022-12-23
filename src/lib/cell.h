@@ -30,17 +30,15 @@ namespace Life{
         n_cols = c.n_cols;
       }
 
-      short get_neighbor(Cell, short, short);
-      short get_count(Cell, short, short); 
-      short check(Cell, short, short);
-      short is_alive();
-      void show_cell(short, char, char);
-      void show_row(std::vector<short>, char, char);
-      void show_board(Cell, char, char);
-      
-      void update_cells(Cell);
-      
-      std::string board_to_string(Cell);
+      short get_neighbor(Cell, short, short);        //!< Use modulus to get wrapping effect at board edges
+      short get_count(Cell, short, short);           //!< Get the account of neighbors
+      short check(Cell, short, short);               //!< Check the state of the cell. Return 1 if her born or survived or 0 if her dead
+      short is_alive();                              //!< Get the account of alive cells
+      void show_cell(short, char, char);             //!< Displays a cell individually
+      void show_row(std::vector<short>, char, char); //!< Displays an entire line and his start and end tags
+      void show_board(Cell, char, char);             //!< Displays the gameboard
+      void update_cells(Cell);                       //!< Update the cells after show they
+      std::string board_to_string(Cell);             //!< Get the string version of an generation to compare stability
   }; 
 }
 #endif
